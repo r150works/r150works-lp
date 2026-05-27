@@ -1,0 +1,67 @@
+name: r150works LP CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: HTML structure validation
+        run: |
+          python3 -c "
+          from html.parser import HTMLParser
+          import sys, os
+          class V(HTMLParser):
+              def __init__(self):
+                  super().__init__()
+                  self.stack = []
+                  self.errors = []
+                  self.void = {'br','hr','img','input','meta','link','area','base','col','embed','source','track','wbr'}
+              def handle_starttag(self, tag, attrs):
+                  if tag not in self.void: self.stack.append((tag, self.getpos()))
+              def handle_endtag(self, tag):
+                  if not self.stack: self.errors.append(f'unmatched </{tag}>'); return
+                  last, _ = self.stack[-1]
+                  if last == tag: self.stack.pop()
+                  else: self.errors.append(f'mismatch: open<{last}> close</{tag}>')
+          fail = False
+          for f in ['index.html', 'tokushoho.html', 'terms.html', 'privacy.html']:
+              if not os.path.exists(f): continue
+              with open(f, encoding='utf-8') as fp: c = fp.read()
+              v = V(); v.feed(c)
+              if v.errors or v.stack:
+                  print(f'NG {f}'); fail = True
+              else:
+                  print(f'OK {f}')
+          sys.exit(1 if fail else 0)
+          "
+
+      - name: No remaining placeholders
+        run: |
+          if grep -r "REPLACE_" --include="*.html" .; then
+            echo "ERROR: REPLACE_ placeholders still present"
+            exit 1
+          fi
+          echo "✓ All placeholders replaced"
+
+      - name: Validate critical content
+        run: |
+          # 法人番号13桁が記載されているか
+          grep -q "5010403035802" index.html || (echo "Corporate number missing"; exit 1)
+          # 本店住所が記載されているか
+          grep -q "浜松町ダイヤビル" index.html || (echo "HQ address missing"; exit 1)
+          # サポートメール
+          grep -q "support@r150works.com" tokushoho.html || (echo "Support email missing"; exit 1)
+          echo "✓ All critical content present"
