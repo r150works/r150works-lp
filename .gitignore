@@ -1,0 +1,75 @@
+# SinqLog ファミリー 共通 .gitignore テンプレート
+# 各プロダクトの .gitignore はこれをベースに、プロダクト固有を追加
+
+# ===== 依存関係 =====
+node_modules/
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# ===== 環境変数（機密情報） =====
+.env
+.env.local
+.env.production
+.env.*.local
+
+# ===== データベース =====
+*.db
+*.db-journal
+*.db-wal
+*.db-shm
+data/
+*.sqlite
+*.sqlite3
+
+# ===== ログ =====
+*.log
+logs/
+
+# ===== ビルド成果物 =====
+dist/
+build/
+.next/
+out/
+*.tsbuildinfo
+
+# ===== テスト =====
+coverage/
+.nyc_output/
+playwright-report/
+test-results/
+
+# ===== エディタ =====
+.vscode/
+.idea/
+*.swp
+*.swo
+.cursor/
+
+# ===== OS =====
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ===== 一時ファイル =====
+tmp/
+temp/
+*.tmp
+*.bak
+
+# ===== Stripe / 決済 =====
+# 商品/価格ID は config に直接書かない（環境変数化推奨）
+stripe-secrets.json
+
+# ===== SinqLog 固有 =====
+# PubRef Core の raw コンテンツキャッシュ（容量大）
+scripts/ingest/data/raw/
+scripts/ingest/data/logs/
+backend/data/
+backend/scripts/ingest/data/logs/
+backend/scripts/ingest/data/raw/
+
+# ===== 個人情報を含むファイル =====
+# 履歴事項全部証明書等は claude-code/private/ に置く想定
+# private/ 配下は Git 化しない
