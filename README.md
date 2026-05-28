@@ -56,14 +56,14 @@ r150works-lp/
 | 利用規約 | https://r150works.com/terms.html |
 | プライバシーポリシー | https://r150works.com/privacy.html |
 | 商品ページ（AnpiLog）| https://anpilog.jp/ |
-| 商品ページ（CareLog）| https://kaigolog.net/ （取得後） |
+| 商品ページ（KaigoLog）| https://kaigolog.net/ （取得後） |
 | 商品ページ（ClinicLog）| https://cliniclog.jp/ （取得後） |
 
 ### MCC（業種コード）の選択
 
 - **R150works 全体**: 5734 - Computer Software Stores（低リスク）
 - AnpiLog 個別: 同上
-- CareLog 個別: 8099 - Health Practitioners（中リスク、後で Price 追加時に注意）
+- KaigoLog 個別: 8099 - Health Practitioners（中リスク、後で Price 追加時に注意）
 - ClinicLog 個別: 8062 - Hospitals（高リスク、申請時に「AI による情報提供サービス、医療行為に該当しない」を明示）
 
 詳細: `ai-workspace/34_決済システム.md` §ハイリスク業種対策
@@ -71,15 +71,15 @@ r150works-lp/
 ## ドメイン関連メモ（2026-05-26 確定）
 
 - **r150works.com**: 既存取得済（お名前.com）、本 LP の公開先
-- **kaigolog.net**: CareLog 公式（今週中取得予定）。carelog.jp / .com / .net / .co.jp / .io は全 NG 確認済
+- **kaigolog.net**: KaigoLog 公式（今週中取得予定）。carelog.jp / .com / .net / .co.jp / .io は全 NG 確認済
 - **r150works.jp**: 不要（r150works.com で代替）
-- 長期戦略: SinqRelations 設立後に carelog.co.jp 取得チャレンジ、取れれば CareLog 本命に昇格
+- 長期戦略: SinqRelations 設立後に carelog.co.jp 取得チャレンジ、取れれば KaigoLog 本命に昇格
 
 ## 公開前チェックリスト
 
 - [ ] すべての `[REPLACE_*]` を実値に置換
 - [ ] `[REPLACE_LAST_UPDATED]` を公開日に設定
-- [ ] `index.html` の3プロダクト紹介の状態が最新（CareLog 開発状況等）
+- [ ] `index.html` の3プロダクト紹介の状態が最新（KaigoLog 開発状況等）
 - [ ] `tokushoho.html` の料金が `ai-workspace/30_ビジネス戦略.md` の最新と一致
 - [ ] `privacy.html` の個人情報保護管理者氏名・連絡先を設定
 - [ ] `terms.html` の決済以外の章を弁護士レビュー（または最小限の確認）
