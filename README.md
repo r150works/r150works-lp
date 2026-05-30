@@ -25,7 +25,7 @@ r150works-lp/
 | `[REPLACE_POSTAL_CODE]` | 郵便番号（例: 425-0000）| index, tokushoho |
 | `[REPLACE_ADDRESS]` | 所在地（番地まで、例: 静岡県焼津市◯◯1-2-3）| index, tokushoho |
 | `[REPLACE_PHONE]` | 電話番号（例: 054-XXX-XXXX、なければ「請求により遅滞なく開示」のまま）| tokushoho |
-| `[REPLACE_SUPPORT_EMAIL]` | サポート用メール（例: support@r150works.com）| 全ファイル |
+| `[REPLACE_SUPPORT_EMAIL]` | 公開窓口メール（info@r150works.com に統一、2026-05-30 方針）| 全ファイル |
 | `[REPLACE_PRIVACY_OFFICER_NAME]` | 個人情報保護管理者氏名（通常は代表者と同一）| privacy |
 | `[REPLACE_PRIVACY_OFFICER_EMAIL]` | 個人情報保護管理者メール | privacy |
 | `[REPLACE_LAST_UPDATED]` | 最終更新日（例: 2026年5月31日）| 全ファイル |
