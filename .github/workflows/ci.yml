@@ -31,7 +31,10 @@ jobs:
                   self.void = {'br','hr','img','input','meta','link','area','base','col','embed','source','track','wbr'}
               def handle_starttag(self, tag, attrs):
                   if tag not in self.void: self.stack.append((tag, self.getpos()))
+              def handle_startendtag(self, tag, attrs):
+                  pass
               def handle_endtag(self, tag):
+                  if tag in self.void: return
                   if not self.stack: self.errors.append(f'unmatched </{tag}>'); return
                   last, _ = self.stack[-1]
                   if last == tag: self.stack.pop()
