@@ -55,16 +55,16 @@ r150works-lp/
 | 特商法表記 | https://r150works.com/tokushoho.html |
 | 利用規約 | https://r150works.com/terms.html |
 | プライバシーポリシー | https://r150works.com/privacy.html |
-| 商品ページ（AnpiLog）| https://anpilog.jp/ |
-| 商品ページ（KaigoLog）| https://kaigolog.net/ （取得後） |
-| 商品ページ（ClinicLog）| https://cliniclog.jp/ （取得後） |
+| 商品ページ（KaigoLog）| https://kaigolog.net/（公開準備中） |
+| 商品ページ（ShienLog）| https://shienlog.com/（公開準備中） |
+
+※ 2026-06-02 方針転換: LP を **KaigoLog ＋ ShienLog の2本立て**に再編（AnpiLog は FC撤退期の対外展開凍結のため LP から除外、ClinicLog は当面除外）。詳細 → `ai-workspace/50_決定事項ログ.md`（2026-06-02）。
 
 ### MCC（業種コード）の選択
 
 - **R150works 全体**: 5734 - Computer Software Stores（低リスク）
-- AnpiLog 個別: 同上
 - KaigoLog 個別: 8099 - Health Practitioners（中リスク、後で Price 追加時に注意）
-- ClinicLog 個別: 8062 - Hospitals（高リスク、申請時に「AI による情報提供サービス、医療行為に該当しない」を明示）
+- ShienLog 個別: 5734 - Computer Software Stores ベース（障害児通所支援向け SaaS）。要配慮個人情報＋未成年（保護者同意）を扱う旨は申請時に説明、医療行為・診療には非該当を明示
 
 詳細: `ai-workspace/34_決済システム.md` §ハイリスク業種対策
 
