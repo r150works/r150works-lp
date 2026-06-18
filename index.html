@@ -3,9 +3,230 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>R150works 合同会社 — 介護・障害福祉の現場を支える SaaS プラットフォーム</title>
-<meta name="description" content="R150works 合同会社は、ケアマネージャー業務支援（KaigoLog）と障害児通所支援（ShienLog）の SaaS を提供する事業者です。公的資料案内 AI 司書・書類テンプレ・制度改定キュレーションを統合提供します。" />
+<title>R150works 合同会社 — 介護・障害福祉の現場を支える SaaS</title>
+<meta name="description" content="R150works 合同会社は、ケアマネージャー向け KaigoLog・障害児通所支援向け ShienLog を開発・運営します。公的資料案内 AI 司書・書類テンプレ・制度改定キュレーションを現場に提供します。" />
 <link rel="stylesheet" href="assets/style.css" />
+<style>
+  /* ヒーロー追記 */
+  .hero-tagline {
+    font-size: 13px;
+    letter-spacing: 0.12em;
+    color: var(--color-text-muted);
+    margin: 0 0 16px;
+    text-transform: none;
+  }
+
+  .hero h1 {
+    font-size: 30px;
+  }
+
+  /* ターゲット課題グリッド */
+  .pain-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+    margin-top: 8px;
+  }
+
+  .pain-card {
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    padding: 24px;
+  }
+
+  .pain-card h3 {
+    font-size: 16px;
+    color: var(--color-primary);
+    margin: 0 0 12px;
+    border-bottom: 1px solid var(--color-border);
+    padding-bottom: 10px;
+  }
+
+  .pain-card ul {
+    margin: 0;
+    padding-left: 18px;
+    font-size: 14px;
+    color: var(--color-text-muted);
+  }
+
+  .pain-card ul li {
+    margin: 8px 0;
+    line-height: 1.7;
+  }
+
+  /* 製品カード内 機能リスト */
+  .product-card .feature-list {
+    margin: 12px 0 8px;
+    padding-left: 18px;
+    font-size: 14px;
+    color: var(--color-text-muted);
+  }
+
+  .product-card .feature-list li {
+    margin: 6px 0;
+    line-height: 1.65;
+  }
+
+  .product-card .product-tagline {
+    font-size: 13px;
+    color: var(--color-primary);
+    font-weight: 600;
+    margin: 12px 0 8px;
+    border-left: 3px solid var(--color-accent);
+    padding-left: 10px;
+  }
+
+  .product-card .free-note {
+    font-size: 13px;
+    color: var(--color-text-muted);
+    margin: 8px 0 16px;
+  }
+
+  .product-btn {
+    display: inline-block;
+    background: var(--color-primary);
+    color: #ffffff;
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: var(--radius);
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    transition: background 0.2s;
+  }
+
+  .product-btn:hover {
+    background: var(--color-primary-light);
+    color: #ffffff;
+  }
+
+  /* 4コマ枠 */
+  .comic {
+    margin: 20px 0 0;
+    padding: 10px;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    background: #fff;
+  }
+
+  .comic svg {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .comic figcaption {
+    font-size: 12px;
+    color: var(--color-text-muted);
+    text-align: center;
+    padding: 10px 8px 2px;
+    line-height: 1.6;
+  }
+
+  /* 無料導線セクション */
+  .cta-box {
+    max-width: var(--max-width-text);
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .cta-box p {
+    font-size: 16px;
+    margin: 0 0 24px;
+  }
+
+  .cta-btn-group {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .cta-btn {
+    display: inline-block;
+    background: var(--color-primary);
+    color: #ffffff;
+    text-decoration: none;
+    padding: 12px 28px;
+    border-radius: var(--radius);
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    transition: background 0.2s;
+  }
+
+  .cta-btn:hover {
+    background: var(--color-primary-light);
+    color: #ffffff;
+  }
+
+  .cta-btn.secondary {
+    background: var(--color-bg);
+    color: var(--color-primary);
+    border: 2px solid var(--color-primary);
+  }
+
+  .cta-btn.secondary:hover {
+    background: var(--color-bg-soft);
+    color: var(--color-primary);
+  }
+
+  /* 3つの約束 */
+  .promise-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 20px;
+    max-width: var(--max-width);
+    margin: 0 auto;
+  }
+
+  .promise-item {
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    padding: 20px 24px;
+  }
+
+  .promise-item h3 {
+    font-size: 15px;
+    color: var(--color-primary);
+    margin: 0 0 10px;
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+  }
+
+  .promise-num {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--color-accent);
+    font-family: Georgia, serif;
+    line-height: 1;
+  }
+
+  .promise-item p {
+    font-size: 13px;
+    color: var(--color-text-muted);
+    margin: 0;
+    line-height: 1.75;
+  }
+
+  /* お問い合わせ末尾ボタン */
+  .contact-footer-btns {
+    margin-top: 32px;
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  @media (max-width: 640px) {
+    .hero h1 { font-size: 22px; }
+    .cta-btn-group { flex-direction: column; align-items: center; }
+    .contact-footer-btns { flex-direction: column; align-items: center; }
+  }
+</style>
 </head>
 <body>
 
@@ -20,50 +241,307 @@
   </div>
 </header>
 
+<!-- 1. ヒーロー -->
 <section class="hero">
   <div class="hero-inner">
-    <h1>地域社会のつながりを仕組化する</h1>
+    <p class="hero-tagline">気にかける、をしくみに。</p>
+    <h1>制度のことは、公的資料に最短でたどり着く。</h1>
     <p class="lead">
-      R150works 合同会社は、介護・障害福祉の現場を支える SaaS を開発・運営する会社です。<br>
-      公的資料の案内・書類作成の支援・制度改定のキャッチアップを、現場の業務に寄り添って提供します。
+      介護・障害福祉の現場の「調べる・書く・追いかける」を、<br>
+      公的資料に根ざして支える SaaS を開発・運営しています。
     </p>
   </div>
 </section>
 
+<!-- 2. 誰の・何の困りごとか -->
+<section class="section section-soft">
+  <div class="section-inner">
+    <h2>現場の「困りごと」から出発しています</h2>
+    <div class="pain-grid">
+
+      <div class="pain-card">
+        <h3>ケアマネージャーの方</h3>
+        <ul>
+          <li>この加算の根拠資料が、どこに書いてあるか探すだけで時間が過ぎてしまう</li>
+          <li>制度改定のたびに、自分で通知を読んで確認し直す作業が重なっている</li>
+          <li>書類の土台づくりをゼロから手作業しており、時間的な余裕がない</li>
+        </ul>
+      </div>
+
+      <div class="pain-card">
+        <h3>児発管・放デイ管理者の方</h3>
+        <ul>
+          <li>運営指導に向けて、根拠となる法令や通達をどこで調べればいいか分からない</li>
+          <li>障害福祉の改定内容が多く、追い切れないまま実務を続けざるを得ない</li>
+          <li>個別支援計画書をゼロから起こすことが多く、担当者の負担が集中している</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- 3. 製品 2 枚 -->
 <section id="products" class="section">
   <div class="section-inner">
     <h2>提供サービス</h2>
     <div class="product-grid">
 
+      <!-- KaigoLog -->
       <div class="product-card">
         <h3>
           KaigoLog
-          <span class="product-status beta">開発中</span>
+          <span class="product-status live">公開中</span>
         </h3>
-        <p>
-          ケアマネージャー向けの業務支援 SaaS。介護AI司書（公的資料案内）、書類テンプレ集、業界ニュース自動キュレーション、気づきメモを統合提供。
-        </p>
-        <p>
-          30日間の無料お試しから、個人向け・事業所向けのプランをご用意します。料金・機能の詳細とお申し込みは製品サイトをご覧ください。
-        </p>
-        <p>
-          <a href="https://kaigolog.net/" class="product-link">kaigolog.net（公開準備中）</a>
-        </p>
+        <p style="margin: 4px 0 8px; font-size: 14px; color: var(--color-text-muted);">ケアマネージャー向け業務支援 SaaS</p>
+        <ul class="feature-list">
+          <li>介護AI司書 by PubRef — 法令・告示・通達から根拠を案内</li>
+          <li>書類テンプレ集 — 各種記録書類の土台を提供</li>
+          <li>制度改定ニュース — 厚労省通知を自動収集・整理</li>
+          <li>気づきメモ — 現場の記録を手元に集約</li>
+        </ul>
+        <p class="product-tagline">根拠の最短ルートへ。判断は、あなたが。</p>
+        <p class="free-note">カード登録なしで無料から試せます。</p>
+        <a href="https://kaigolog.net/" class="product-btn">KaigoLog を見る</a>
+
+        <!-- 4コマ枠（KaigoLog） -->
+        <figure class="comic" id="comic-kaigolog" aria-label="KaigoLogでケアマネの困りごとが解決する4コマ漫画">
+          <svg viewBox="0 0 600 600" width="100%" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="KaigoLog 4コマ漫画" font-family="'Noto Sans JP',-apple-system,sans-serif">
+            <rect x="0" y="0" width="600" height="600" fill="#ffffff"/>
+            <g stroke="#e5e7eb" stroke-width="1.5" fill="none">
+              <rect x="1" y="1" width="298" height="298"/><rect x="301" y="1" width="298" height="298"/>
+              <rect x="1" y="301" width="298" height="298"/><rect x="301" y="301" width="298" height="298"/>
+            </g>
+            <!-- (1) 困りごと -->
+            <g transform="translate(0,0)">
+              <circle cx="26" cy="28" r="13" fill="#1c3464"/><text x="26" y="33" text-anchor="middle" fill="#fff" font-size="15" font-weight="700">1</text>
+              <g stroke="#1f2937" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M112 152 Q150 126 188 152"/><line x1="150" y1="120" x2="150" y2="130"/>
+                <rect x="42" y="176" width="216" height="12" rx="2" fill="#fff"/>
+                <line x1="60" y1="188" x2="60" y2="214"/><line x1="240" y1="188" x2="240" y2="214"/>
+                <rect x="74" y="158" width="44" height="18" rx="1.5" fill="#fff"/><line x1="80" y1="165" x2="112" y2="165"/><line x1="80" y1="170" x2="106" y2="170"/>
+                <rect x="150" y="156" width="42" height="20" rx="1.5" fill="#fff"/><line x1="156" y1="163" x2="186" y2="163"/><line x1="156" y1="169" x2="180" y2="169"/>
+                <circle cx="150" cy="96" r="24" fill="#fff"/><path d="M141 107 q9 4 18 0"/>
+              </g>
+              <circle cx="141" cy="92" r="2.4" fill="#1f2937"/><circle cx="159" cy="92" r="2.4" fill="#1f2937"/>
+              <g stroke="#1f2937" stroke-width="2" fill="#fff" stroke-linejoin="round">
+                <circle cx="184" cy="74" r="3.5"/><circle cx="192" cy="63" r="5"/><rect x="196" y="30" width="78" height="38" rx="12"/>
+              </g>
+              <text x="235" y="55" text-anchor="middle" fill="#1f2937" font-size="16" font-weight="700">加算？</text>
+              <text text-anchor="middle" fill="#374151" font-size="13.5"><tspan x="150" y="246">「この加算、根拠は</tspan><tspan x="150" y="265">どの資料だっけ…」</tspan></text>
+            </g>
+            <!-- (2) 詰まる -->
+            <g transform="translate(300,0)">
+              <circle cx="26" cy="28" r="13" fill="#1c3464"/><text x="26" y="33" text-anchor="middle" fill="#fff" font-size="15" font-weight="700">2</text>
+              <g stroke="#1f2937" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="96" y="198" width="116" height="16" rx="2" fill="#fff"/>
+                <rect x="88" y="182" width="120" height="16" rx="2" fill="#fff" transform="rotate(-3 148 190)"/>
+                <rect x="100" y="166" width="112" height="16" rx="2" fill="#fff" transform="rotate(2 156 174)"/>
+                <rect x="92" y="150" width="118" height="16" rx="2" fill="#fff" transform="rotate(-2 151 158)"/>
+                <line x1="104" y1="158" x2="150" y2="158"/>
+                <circle cx="150" cy="120" r="20" fill="#fff"/>
+                <path d="M122 140 q-10 -10 -5 -24"/><path d="M178 140 q10 -10 5 -24"/>
+                <circle cx="250" cy="58" r="22" fill="#fff"/><line x1="250" y1="58" x2="250" y2="44"/><line x1="250" y1="58" x2="261" y2="62"/>
+              </g>
+              <circle cx="143" cy="117" r="2.3" fill="#1f2937"/><circle cx="157" cy="117" r="2.3" fill="#1f2937"/>
+              <path d="M145 129 q5 2 10 0" stroke="#1f2937" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+              <path d="M176 102 q5 8 0 13 q-5 -5 0 -13 Z" fill="#2a4d8f"/>
+              <text text-anchor="middle" fill="#374151" font-size="13.5"><tspan x="150" y="246">資料の山。探すだけで</tspan><tspan x="150" y="265">時間が過ぎていく。</tspan></text>
+            </g>
+            <!-- (3) 使う -->
+            <g transform="translate(0,300)">
+              <circle cx="26" cy="28" r="13" fill="#1c3464"/><text x="26" y="33" text-anchor="middle" fill="#fff" font-size="15" font-weight="700">3</text>
+              <g stroke="#1f2937" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="56" y="54" width="188" height="122" rx="8" fill="#fff"/>
+                <line x1="56" y1="80" x2="244" y2="80"/>
+                <line x1="150" y1="176" x2="150" y2="192"/><line x1="126" y1="192" x2="174" y2="192"/>
+                <rect x="178" y="104" width="44" height="54" rx="3" fill="#fff"/><line x1="186" y1="118" x2="214" y2="118"/><line x1="186" y1="128" x2="214" y2="128"/><line x1="186" y1="138" x2="206" y2="138"/>
+              </g>
+              <text x="72" y="74" fill="#1c3464" font-size="13" font-weight="700">KaigoLog</text>
+              <text x="70" y="108" fill="#b8741a" font-size="12.5" font-weight="600">出典：◯◯法</text>
+              <text x="70" y="126" fill="#b8741a" font-size="12.5" font-weight="600">施行規則 第◯条</text>
+              <path d="M150 132 H172" stroke="#b8741a" stroke-width="2.4" fill="none" stroke-linecap="round"/><path d="M164 126 l8 6 l-8 6" stroke="#b8741a" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+              <text text-anchor="middle" fill="#374151" font-size="13.5"><tspan x="150" y="246">「“公的資料はここ”と</tspan><tspan x="150" y="265">案内してくれる」</tspan></text>
+            </g>
+            <!-- (4) 楽になる -->
+            <g transform="translate(300,300)">
+              <circle cx="26" cy="28" r="13" fill="#1c3464"/><text x="26" y="33" text-anchor="middle" fill="#fff" font-size="15" font-weight="700">4</text>
+              <g stroke="#1f2937" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M114 158 Q150 132 186 158"/><line x1="150" y1="126" x2="150" y2="136"/>
+                <rect x="42" y="182" width="216" height="12" rx="2" fill="#fff"/>
+                <line x1="60" y1="194" x2="60" y2="218"/><line x1="240" y1="194" x2="240" y2="218"/>
+                <rect x="120" y="160" width="60" height="22" rx="2" fill="#fff"/>
+                <circle cx="150" cy="100" r="24" fill="#fff"/><path d="M140 106 q10 11 20 0"/>
+              </g>
+              <circle cx="141" cy="96" r="2.4" fill="#1f2937"/><circle cx="159" cy="96" r="2.4" fill="#1f2937"/>
+              <path d="M132 170 l8 8 l16 -18" stroke="#15803d" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M198 84 q7 -6 0 -13" stroke="#9ca3af" stroke-width="2" fill="none" stroke-linecap="round"/><path d="M210 80 q7 -6 0 -13" stroke="#9ca3af" stroke-width="2" fill="none" stroke-linecap="round"/>
+              <text text-anchor="middle" fill="#374151" font-size="13.5"><tspan x="150" y="246">根拠の最短ルートへ。</tspan><tspan x="150" y="265">判断は、あなたが。</tspan></text>
+            </g>
+          </svg>
+          <figcaption>加算の根拠探しが、最短ルートで完結するまで。</figcaption>
+        </figure>
       </div>
 
+      <!-- ShienLog -->
       <div class="product-card">
         <h3>
           ShienLog
-          <span class="product-status planned">計画中</span>
+          <span class="product-status live">公開中</span>
+        </h3>
+        <p style="margin: 4px 0 8px; font-size: 14px; color: var(--color-text-muted);">障害児通所支援事業者向け業務支援 SaaS</p>
+        <ul class="feature-list">
+          <li>障害福祉AI司書 by PubRef — 法令・告示・通達から根拠を案内</li>
+          <li>個別支援計画書たたき台 — 計画書の土台を条件入力で生成</li>
+          <li>制度改定ニュース — 障害福祉関連通知を自動収集・整理</li>
+          <li>気づきメモ — 現場の記録を手元に集約</li>
+        </ul>
+        <p class="product-tagline">土台はしくみで。仕上げは、あなたの手で。</p>
+        <p class="free-note">カード登録なしで無料から試せます。</p>
+        <a href="https://shienlog.com/" class="product-btn">ShienLog を見る</a>
+
+        <!-- 4コマ枠（ShienLog） -->
+        <figure class="comic" id="comic-shienlog" aria-label="ShienLogで児発管の困りごとが解決する4コマ漫画">
+          <svg viewBox="0 0 600 600" width="100%" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="ShienLog 4コマ漫画" font-family="'Noto Sans JP',-apple-system,sans-serif">
+            <rect x="0" y="0" width="600" height="600" fill="#ffffff"/>
+            <g stroke="#e5e7eb" stroke-width="1.5" fill="none">
+              <rect x="1" y="1" width="298" height="298"/><rect x="301" y="1" width="298" height="298"/>
+              <rect x="1" y="301" width="298" height="298"/><rect x="301" y="301" width="298" height="298"/>
+            </g>
+            <!-- (1) 困りごと -->
+            <g transform="translate(0,0)">
+              <circle cx="26" cy="28" r="13" fill="#1c3464"/><text x="26" y="33" text-anchor="middle" fill="#fff" font-size="15" font-weight="700">1</text>
+              <g stroke="#1f2937" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M112 150 Q150 124 188 150"/><line x1="150" y1="118" x2="150" y2="128"/>
+                <rect x="42" y="178" width="216" height="12" rx="2" fill="#fff"/>
+                <line x1="60" y1="190" x2="60" y2="216"/><line x1="240" y1="190" x2="240" y2="216"/>
+                <rect x="106" y="150" width="88" height="30" rx="2" fill="#fff"/>
+                <rect x="113" y="157" width="8" height="8" rx="1"/><line x1="128" y1="161" x2="186" y2="161"/>
+                <rect x="113" y="168" width="8" height="8" rx="1"/><line x1="128" y1="172" x2="178" y2="172"/>
+                <circle cx="150" cy="94" r="24" fill="#fff"/><path d="M142 107 q8 -4 16 0"/>
+              </g>
+              <circle cx="141" cy="90" r="2.4" fill="#1f2937"/><circle cx="159" cy="90" r="2.4" fill="#1f2937"/>
+              <g stroke="#1f2937" stroke-width="2" fill="#fff" stroke-linejoin="round">
+                <circle cx="184" cy="72" r="3.5"/><circle cx="192" cy="61" r="5"/><rect x="194" y="26" width="86" height="38" rx="12"/>
+              </g>
+              <text x="237" y="51" text-anchor="middle" fill="#1f2937" font-size="15" font-weight="700">計画書…</text>
+              <text text-anchor="middle" fill="#374151" font-size="13"><tspan x="150" y="246">「個別支援計画、ゼロから</tspan><tspan x="150" y="265">書くのは大変…」</tspan></text>
+            </g>
+            <!-- (2) 詰まる -->
+            <g transform="translate(300,0)">
+              <circle cx="26" cy="28" r="13" fill="#1c3464"/><text x="26" y="33" text-anchor="middle" fill="#fff" font-size="15" font-weight="700">2</text>
+              <g stroke="#1f2937" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M116 198 Q150 170 184 198"/><line x1="150" y1="164" x2="150" y2="174"/>
+                <circle cx="150" cy="140" r="20" fill="#fff"/>
+                <path d="M122 178 q-12 -8 -10 -26"/><path d="M178 178 q12 -8 10 -26"/>
+                <g fill="#fff">
+                  <rect x="58" y="40" width="46" height="34" rx="2" transform="rotate(-12 81 57)"/>
+                  <rect x="134" y="28" width="46" height="34" rx="2" transform="rotate(7 157 45)"/>
+                  <rect x="206" y="46" width="46" height="34" rx="2" transform="rotate(-8 229 63)"/>
+                </g>
+                <line x1="72" y1="22" x2="76" y2="33"/><line x1="158" y1="12" x2="160" y2="23"/><line x1="232" y1="28" x2="235" y2="39"/>
+              </g>
+              <circle cx="143" cy="137" r="2.3" fill="#1f2937"/><circle cx="157" cy="137" r="2.3" fill="#1f2937"/>
+              <path d="M144 150 q6 -3 12 0" stroke="#1f2937" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+              <text x="81" y="61" text-anchor="middle" fill="#b8741a" font-size="11" font-weight="700" transform="rotate(-12 81 57)">改定</text>
+              <text x="157" y="49" text-anchor="middle" fill="#b8741a" font-size="11" font-weight="700" transform="rotate(7 157 45)">改定</text>
+              <text x="229" y="67" text-anchor="middle" fill="#b8741a" font-size="11" font-weight="700" transform="rotate(-8 229 63)">改定</text>
+              <text text-anchor="middle" fill="#374151" font-size="13"><tspan x="150" y="246">制度改定の通知も次々。</tspan><tspan x="150" y="265">追いつかない。</tspan></text>
+            </g>
+            <!-- (3) 使う -->
+            <g transform="translate(0,300)">
+              <circle cx="26" cy="28" r="13" fill="#1c3464"/><text x="26" y="33" text-anchor="middle" fill="#fff" font-size="15" font-weight="700">3</text>
+              <g stroke="#1f2937" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="34" y="58" width="152" height="118" rx="8" fill="#fff"/>
+                <line x1="34" y1="82" x2="186" y2="82"/>
+                <line x1="110" y1="176" x2="110" y2="190"/><line x1="88" y1="190" x2="132" y2="190"/>
+                <rect x="50" y="96" width="13" height="13" rx="2"/><line x1="72" y1="103" x2="150" y2="103"/>
+                <rect x="50" y="120" width="13" height="13" rx="2"/><line x1="72" y1="127" x2="150" y2="127"/>
+                <rect x="50" y="144" width="13" height="13" rx="2"/><line x1="72" y1="151" x2="138" y2="151"/>
+                <rect x="212" y="96" width="58" height="80" rx="3" fill="#fff"/><line x1="222" y1="122" x2="260" y2="122"/><line x1="222" y1="134" x2="260" y2="134"/><line x1="222" y1="146" x2="252" y2="146"/>
+              </g>
+              <path d="M53 103 l3 4 l6 -8" stroke="#15803d" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M53 127 l3 4 l6 -8" stroke="#15803d" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M53 151 l3 4 l6 -8" stroke="#15803d" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+              <text x="50" y="76" fill="#1c3464" font-size="13" font-weight="700">ShienLog</text>
+              <path d="M188 136 H210" stroke="#b8741a" stroke-width="2.4" fill="none" stroke-linecap="round"/><path d="M202 130 l8 6 l-8 6" stroke="#b8741a" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+              <text x="241" y="113" text-anchor="middle" fill="#b8741a" font-size="11" font-weight="700">たたき台</text>
+              <text text-anchor="middle" fill="#374151" font-size="13"><tspan x="150" y="246">条件を入れると、</tspan><tspan x="150" y="265">たたき台が出てくる。</tspan></text>
+            </g>
+            <!-- (4) 楽になる -->
+            <g transform="translate(300,300)">
+              <circle cx="26" cy="28" r="13" fill="#1c3464"/><text x="26" y="33" text-anchor="middle" fill="#fff" font-size="15" font-weight="700">4</text>
+              <g stroke="#1f2937" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M114 158 Q150 132 186 158"/><line x1="150" y1="126" x2="150" y2="136"/>
+                <rect x="42" y="182" width="216" height="12" rx="2" fill="#fff"/>
+                <line x1="60" y1="194" x2="60" y2="218"/><line x1="240" y1="194" x2="240" y2="218"/>
+                <rect x="104" y="158" width="78" height="26" rx="2" fill="#fff"/><line x1="112" y1="166" x2="158" y2="166"/><line x1="112" y1="173" x2="150" y2="173"/>
+                <circle cx="150" cy="100" r="24" fill="#fff"/><path d="M140 106 q10 11 20 0"/>
+              </g>
+              <circle cx="141" cy="96" r="2.4" fill="#1f2937"/><circle cx="159" cy="96" r="2.4" fill="#1f2937"/>
+              <path d="M170 150 L196 130" stroke="#b8741a" stroke-width="3.4" fill="none" stroke-linecap="round"/><path d="M170 150 l-3 8 l8 -3 z" fill="#b8741a"/>
+              <path d="M205 86 q7 -6 0 -13" stroke="#9ca3af" stroke-width="2" fill="none" stroke-linecap="round"/><path d="M216 82 q7 -6 0 -13" stroke="#9ca3af" stroke-width="2" fill="none" stroke-linecap="round"/>
+              <text text-anchor="middle" fill="#374151" font-size="13"><tspan x="150" y="246">土台はしくみで。</tspan><tspan x="150" y="265">仕上げは、あなたの手で。</tspan></text>
+            </g>
+          </svg>
+          <figcaption>計画書の土台づくりと制度追いかけが、しくみになるまで。</figcaption>
+        </figure>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- 5. 無料で始められる導線 -->
+<section class="section section-soft">
+  <div class="section-inner">
+    <div class="cta-box">
+      <h2 style="border-bottom: 2px solid var(--color-primary); padding-bottom: 8px; margin: 0 0 20px; font-size: 24px; color: var(--color-primary); text-align: left;">まず、無料で試してみてください</h2>
+      <p>
+        カード登録なしで、AI司書に公的資料の案内を依頼できます。<br>
+        登録後すぐに使える無料枠から、現場に合うかどうかをご確認ください。
+      </p>
+      <div class="cta-btn-group">
+        <a href="https://kaigolog.net/" class="cta-btn">KaigoLog を無料で試す</a>
+        <a href="https://shienlog.com/" class="cta-btn secondary">ShienLog を無料で試す</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 6. 3つの約束 -->
+<section class="section">
+  <div class="section-inner">
+    <h2>サービス提供の基本</h2>
+    <div class="promise-grid">
+
+      <div class="promise-item">
+        <h3>
+          <span class="promise-num">1</span>
+          公的資料案内スタンス
         </h3>
         <p>
-          障害児通所支援（児童発達支援・放課後等デイサービス）事業者向けの業務支援 SaaS。障害福祉AI司書（公的資料案内）、個別支援計画書テンプレ、制度改定ニュース自動キュレーション、気づきメモを統合提供。
+          当社の AI 機能（介護AI司書・障害福祉AI司書 by PubRef）は「答えを出す AI」ではなく「公的資料を案内する AI」として設計されています。法令・告示・通達など公的に発表された資料を根拠として、適切な情報源への最短ルートを提示します。最終判断は利用者ご自身が行います。
         </p>
+      </div>
+
+      <div class="promise-item">
+        <h3>
+          <span class="promise-num">2</span>
+          業界中立性
+        </h3>
         <p>
-          30日間の無料お試しから、個人向け・事業所向けのプランをご用意します。料金・機能の詳細とお申し込みは製品サイトをご覧ください。
+          当社のサービスは、特定のフランチャイズ本部・特定の医療法人グループに紐付かない、業界中立のプラットフォームとして設計されています。事業所の皆様が所属先にかかわらず安心して業務に集中できる環境を提供します。
         </p>
+      </div>
+
+      <div class="promise-item">
+        <h3>
+          <span class="promise-num">3</span>
+          個人プランの設計と決済透明性
+        </h3>
         <p>
-          <a href="https://shienlog.com/" class="product-link">shienlog.com（公開準備中）</a>
+          個人プランは、業務上の個人情報を当社サーバーに蓄積しない設計の入口から始まります。決済処理は Stripe Payments Japan 株式会社を通じて行い、カード情報は当社サーバーに保管されません。お客様ご自身が Stripe Customer Portal から契約管理（プラン変更・解約・領収書取得）をいつでも実施いただけます。
         </p>
       </div>
 
@@ -71,34 +549,8 @@
   </div>
 </section>
 
-<section class="section section-soft">
-  <div class="section-inner">
-    <h2>サービス提供の基本</h2>
-    <div style="max-width: var(--max-width-text); margin: 0 auto;">
-      <h3>1. 業界中立性</h3>
-      <p>
-        当社のサービスは、特定のフランチャイズ本部・特定の医療法人グループに紐付かない業界中立のプラットフォームとして設計されています。事業者の皆様が安心して業務に集中できる環境を提供します。
-      </p>
-
-      <h3>2. 公的資料案内スタンス</h3>
-      <p>
-        当社の AI 機能（介護AI司書・障害福祉AI司書）は「答えを出す AI」ではなく「公的資料を案内する AI」として設計されています。法令・告示・通達など公的に発表された資料を根拠として、適切な情報源への最短ルートを提示します。
-      </p>
-
-      <h3>3. 業務品質の構造的担保</h3>
-      <p>
-        ケアの現場では「同意」「通知」「権限」「監査」「到達保証」が業務品質と直結します。当社サービスは、これらの責務を製品の構造そのもので担保し、ヒューマンエラーに依存しない運用を可能にします。
-      </p>
-
-      <h3>4. 決済の透明性</h3>
-      <p>
-        決済処理は Stripe Payments Japan 株式会社を通じて行います。クレジットカード情報は当社サーバーには一切保管されません。お客様自身が Stripe Customer Portal から契約管理（プラン変更・解約・領収書取得）をいつでも実施いただけます。
-      </p>
-    </div>
-  </div>
-</section>
-
-<section id="company" class="section">
+<!-- 7. 会社情報 -->
+<section id="company" class="section section-soft">
   <div class="section-inner">
     <h2>会社情報</h2>
     <table class="info-table">
@@ -130,9 +582,9 @@
         <th>事業内容</th>
         <td>
           <ul style="margin: 0; padding-left: 20px;">
-            <li>SaaS（Software as a Service）の開発・運営</li>
-            <li>業務同期・通知システムの提供</li>
-            <li>AI による公的資料検索サービスの提供</li>
+            <li>KaigoLog（介護ケアマネ向け業務支援 SaaS）の開発・運営</li>
+            <li>ShienLog（障害児通所支援向け業務支援 SaaS）の開発・運営</li>
+            <li>AI による公的資料案内サービスの提供</li>
             <li>配食事業（焼津店）</li>
           </ul>
         </td>
@@ -154,7 +606,8 @@
   </div>
 </section>
 
-<section id="contact" class="section section-soft">
+<!-- お問い合わせ -->
+<section id="contact" class="section">
   <div class="section-inner">
     <h2>お問い合わせ</h2>
     <div style="max-width: var(--max-width-text); margin: 0 auto; text-align: center;">
@@ -168,6 +621,11 @@
         営業時間: 平日 10:00〜18:00（土日祝・年末年始を除く）<br>
         お電話によるお問い合わせをご希望の方は、上記メールにて事前にご連絡ください。電話番号を遅滞なく開示いたします。
       </p>
+
+      <div class="contact-footer-btns">
+        <a href="https://kaigolog.net/" class="cta-btn">KaigoLog を見る</a>
+        <a href="https://shienlog.com/" class="cta-btn secondary">ShienLog を見る</a>
+      </div>
     </div>
   </div>
 </section>
@@ -180,7 +638,7 @@
       <a href="privacy.html">プライバシーポリシー</a>
     </nav>
     <div class="copyright">
-      © 2025-2026 R150works 合同会社. All rights reserved.
+      &copy; 2025-2026 R150works 合同会社. All rights reserved.
     </div>
   </div>
 </footer>
