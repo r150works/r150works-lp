@@ -21,7 +21,7 @@ r150works-lp/
 
 | プレースホルダー | 置換値の例 | 出現ファイル |
 |---|---|---|
-| `[REPLACE_REPRESENTATIVE_NAME]` | 代表者氏名（鍋田 修司）| 全ファイル |
+| `[REPLACE_REPRESENTATIVE_NAME]` | 代表者氏名（省略規定で固定・置換不要）| 全ファイル |
 | `[REPLACE_POSTAL_CODE]` | 郵便番号（例: 425-0000）| index, tokushoho |
 | `[REPLACE_ADDRESS]` | 所在地（番地まで、例: 静岡県焼津市◯◯1-2-3）| index, tokushoho |
 | `[REPLACE_PHONE]` | 電話番号（例: 054-XXX-XXXX、なければ「請求により遅滞なく開示」のまま）| tokushoho |
