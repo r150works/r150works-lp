@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>R150works 合同会社 — 現場の「調べる」を、司書のしくみで。［redesign v2 モックアップ］</title>
+<meta name="description" content="R150works 合同会社は、介護・障害福祉・建設・自治会など各現場の「調べる・伝える・つながる」を、公的資料と仕組みに根ざして支える SaaS（SinqLog ファミリー）を開発・運営します。" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&family=Noto+Serif+JP:wght@600;700&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   R150works LP redesign v2 —「書架／司書」
+   方向性：ブランドのDNA（公的資料の"司書"＝Public Reference・蔵書印）を
+   サイトの構造そのものに。製品を"蔵書目録"として一覧化し、
+   落ち着いた知性・静かな信頼を前面に。
+   ブランド：Primary #1c3464／製品ごとの確定差し色／Noto Sans JP／
+   見出しに Noto Serif JP を少量／フォーマル・絵文字なし・誇大表現なし。
+   ============================================================ */
+
+:root {
+  --primary: #1c3464;
+  --primary-dark: #14254a;
+  --primary-light: #2a4d8f;
+  --ink: #26303c;
+  --ink-soft: #5c6572;
+  --paper: #fbfaf6;      /* 静かなオフホワイト */
+  --paper-deep: #f3f0e7;
+  --card: #ffffff;
+  --rule: #ded8ca;       /* 台帳の罫線 */
+  --rule-soft: #ebe6db;
+
+  --kaigo:   #b8741a;
+  --shien:   #4FA373;
+  --pubref:  #475569;
+  --explog:  #43699E;
+  --anpi:    #C9533F;
+  --jichi:   #C96A3C;
+  --tsunagi: #7E6BA8;
+
+  --s1:4px; --s2:8px; --s3:16px; --s4:24px; --s5:32px; --s6:48px; --s7:64px; --s8:96px;
+  --wrap: 1120px;
+  --wrap-text: 760px;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  font-family: "Noto Sans JP", -apple-system, "Segoe UI", "Hiragino Sans", "Yu Gothic UI", sans-serif;
+  color: var(--ink);
+  background: var(--paper);
+  line-height: 1.85;
+  letter-spacing: 0.02em;
+  font-size: 16px;
+}
+.serif { font-family: "Noto Serif JP", "Yu Mincho", serif; }
+a { color: var(--primary); text-underline-offset: 3px; }
+.wrap { max-width: var(--wrap); margin: 0 auto; padding: 0 var(--s4); }
+
+/* ---------- ヘッダー ---------- */
+.site-header { position: sticky; top: 0; z-index: 100; background: rgba(251,250,246,0.94); backdrop-filter: blur(6px); border-bottom: 1px solid var(--rule); }
+.header-inner { max-width: var(--wrap); margin: 0 auto; padding: 12px var(--s4); display: flex; align-items: center; justify-content: space-between; gap: var(--s4); }
+.brand { display: flex; align-items: center; gap: 11px; text-decoration: none; }
+.brand-name { font-weight: 700; font-size: 19px; color: var(--primary); letter-spacing: 0.05em; }
+.brand-sub { font-size: 11px; color: var(--ink-soft); letter-spacing: 0.08em; }
+.site-nav { display: flex; align-items: center; gap: var(--s5); }
+.site-nav a { color: var(--ink); text-decoration: none; font-size: 14px; font-weight: 500; white-space: nowrap; }
+.site-nav a:not(.nav-cta):hover { color: var(--primary); }
+.nav-cta { border: 1.5px solid var(--primary); color: var(--primary) !important; border-radius: 4px; padding: 7px 16px !important; font-weight: 600; transition: background .2s, color .2s; }
+.nav-cta:hover { background: var(--primary); color: #fff !important; }
+
+/* ---------- ヒーロー ---------- */
+.hero { border-bottom: 1px solid var(--rule); background:
+  linear-gradient(180deg, #fff 0%, var(--paper) 100%); }
+.hero-grid { max-width: var(--wrap); margin: 0 auto; padding: clamp(48px,7vw,84px) var(--s4) clamp(40px,5vw,64px); display: grid; grid-template-columns: 1.02fr 0.98fr; gap: clamp(28px,4vw,56px); align-items: center; }
+.hero-eyebrow { font-size: 12.5px; font-weight: 700; letter-spacing: 0.18em; color: var(--kaigo); margin: 0 0 var(--s4); display: flex; align-items: center; gap: 10px; }
+.hero-eyebrow::before { content: ""; width: 26px; height: 2px; background: var(--kaigo); }
+.hero h1 { font-size: clamp(30px, 5.2vw, 50px); font-weight: 700; line-height: 1.32; color: var(--primary); margin: 0 0 var(--s4); text-wrap: pretty; }
+.hero .lead { font-size: clamp(15px, 1.8vw, 18px); color: var(--ink-soft); margin: 0 0 var(--s5); max-width: 30em; }
+.hero-actions { display: flex; flex-wrap: wrap; gap: var(--s3); }
+.btn { display: inline-flex; align-items: center; gap: 8px; text-decoration: none; font-weight: 600; font-size: 15px; padding: 13px 26px; border-radius: 5px; transition: background .2s, transform .15s, box-shadow .2s; border: 1.5px solid transparent; }
+.btn-primary { background: var(--primary); color: #fff; }
+.btn-primary:hover { background: var(--primary-light); transform: translateY(-1px); }
+.btn-ghost { background: #fff; color: var(--primary); border-color: var(--rule); }
+.btn-ghost:hover { border-color: var(--primary); }
+.btn .arrow { transition: transform .2s; }
+.btn:hover .arrow { transform: translateX(3px); }
+
+.hero-illust svg { width: 100%; height: auto; display: block; }
+.hero-illust figcaption { font-size: 12.5px; color: var(--ink-soft); text-align: center; margin-top: var(--s3); }
+
+/* ---------- セクション共通 ---------- */
+.section { padding: clamp(56px,8vw,88px) 0; }
+.section-alt { background: var(--paper-deep); }
+.sec-label { max-width: var(--wrap); margin: 0 auto var(--s6); padding: 0 var(--s4); display: flex; align-items: baseline; gap: var(--s4); border-bottom: 2px solid var(--primary); }
+.sec-label .no { font-family: "Noto Serif JP", serif; font-size: 15px; font-weight: 700; color: var(--kaigo); letter-spacing: 0.1em; padding-bottom: 10px; }
+.sec-label h2 { font-size: clamp(23px, 3.6vw, 32px); color: var(--primary); font-weight: 700; margin: 0; padding-bottom: 8px; line-height: 1.3; }
+.sec-label .en { margin-left: auto; font-size: 12px; letter-spacing: 0.24em; color: var(--ink-soft); padding-bottom: 12px; align-self: flex-end; }
+.sec-intro { max-width: var(--wrap); margin: calc(var(--s6) * -1 + 6px) auto var(--s6); padding: 0 var(--s4); }
+.sec-intro p { font-size: 15.5px; color: var(--ink-soft); margin: var(--s4) 0 0; max-width: 40em; }
+
+/* ---------- 困りごと ---------- */
+.pain-row { max-width: var(--wrap); margin: 0 auto; padding: 0 var(--s4); display: grid; grid-template-columns: 1fr 1fr; gap: var(--s5); }
+.pain-card { background: var(--card); border: 1px solid var(--rule); border-radius: 6px; padding: var(--s5); }
+.pain-card .who { display: flex; align-items: center; gap: 12px; margin: 0 0 var(--s4); padding-bottom: var(--s3); border-bottom: 1px solid var(--rule-soft); }
+.pain-card .who h3 { margin: 0; font-size: 17px; color: var(--primary); font-weight: 700; }
+.pain-card ul { margin: 0; padding: 0; list-style: none; }
+.pain-card li { font-size: 14.5px; color: var(--ink-soft); line-height: 1.8; margin: 12px 0; padding-left: 22px; position: relative; }
+.pain-card li::before { content: ""; position: absolute; left: 0; top: 11px; width: 12px; height: 2px; background: var(--kaigo); }
+.pain-quote { margin: var(--s4) 0 0; padding-top: var(--s4); border-top: 1px dashed var(--rule); font-size: 14px; color: var(--primary); font-weight: 600; }
+
+/* ---------- 蔵書目録（製品一覧＝インデックス） ---------- */
+.catalog { max-width: var(--wrap); margin: 0 auto; padding: 0 var(--s4); }
+.cat-row {
+  display: grid; grid-template-columns: 64px 1fr auto; gap: var(--s4); align-items: center;
+  background: var(--card); border: 1px solid var(--rule); border-left: 6px solid var(--a);
+  --a: var(--pubref);
+  padding: var(--s4) var(--s5); margin-bottom: 14px; border-radius: 0 6px 6px 0;
+  transition: transform .15s, box-shadow .2s;
+}
+.cat-row:hover { transform: translateX(3px); box-shadow: 0 8px 22px rgba(40,30,10,0.07); }
+.cat-no { font-family: "Noto Serif JP", serif; font-size: 15px; font-weight: 700; color: var(--a); letter-spacing: 0.06em; }
+.cat-main { min-width: 0; }
+.cat-head { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 4px; }
+.cat-badge { width: 30px; height: 30px; border-radius: 7px; background: var(--a); flex: 0 0 auto; display: grid; place-items: center; }
+.cat-head h3 { margin: 0; font-size: 20px; color: var(--primary); font-weight: 700; letter-spacing: 0.02em; }
+.cat-role { font-size: 12.5px; color: var(--ink-soft); font-weight: 500; }
+.status { font-size: 11px; font-weight: 700; padding: 2px 9px; border-radius: 3px; background: #e7f3ea; color: #1f7a45; letter-spacing: 0.03em; }
+.status.soon { background: var(--paper-deep); color: var(--ink-soft); }
+.cat-desc { font-size: 13.5px; color: var(--ink-soft); margin: 4px 0 6px; line-height: 1.7; }
+.cat-tag { font-size: 13px; color: var(--primary); font-weight: 600; margin: 0; }
+.cat-action { text-align: right; }
+.cat-link { display: inline-flex; align-items: center; gap: 7px; text-decoration: none; font-weight: 600; font-size: 13.5px; color: #fff; background: var(--a); padding: 9px 18px; border-radius: 5px; white-space: nowrap; transition: filter .2s, transform .15s; }
+.cat-link:hover { filter: brightness(1.06); transform: translateY(-1px); }
+.cat-link.disabled { background: var(--paper-deep); color: var(--ink-soft); pointer-events: none; }
+.cat-free { display: block; font-size: 11.5px; color: var(--ink-soft); margin-top: 6px; }
+
+/* ---------- 現場のはなし（漫画・掲示板） ---------- */
+.stories { max-width: var(--wrap); margin: 0 auto; padding: 0 var(--s4); }
+.stories-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s5); }
+.story {
+  background: var(--card); border: 1px solid var(--rule); border-radius: 6px; overflow: hidden;
+  --a: var(--kaigo);
+}
+.story-head { display: flex; align-items: center; gap: 10px; padding: var(--s4) var(--s5) 0; }
+.story-tab { width: 12px; height: 26px; border-radius: 3px; background: var(--a); }
+.story-head h3 { margin: 0; font-size: 18px; color: var(--primary); font-weight: 700; }
+.story-head .role { font-size: 12px; color: var(--ink-soft); margin-left: auto; }
+.story .cap { font-size: 13px; color: var(--ink-soft); padding: 10px var(--s5) 0; }
+.story figure { margin: 0; padding: var(--s4) var(--s5) var(--s5); }
+.story svg { display: block; width: 100%; height: auto; border: 1px solid var(--rule-soft); border-radius: 6px; }
+
+/* ---------- わたしたちの姿勢 ---------- */
+.promise-grid { max-width: var(--wrap); margin: 0 auto; padding: 0 var(--s4); display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 0; border: 1px solid var(--rule); border-radius: 6px; overflow: hidden; background: var(--card); }
+.promise { padding: var(--s6) var(--s5); border-right: 1px solid var(--rule-soft); }
+.promise:last-child { border-right: none; }
+.promise .num { font-family: "Noto Serif JP", serif; font-size: 34px; font-weight: 700; color: var(--paper-deep); line-height: 1; display: block; margin-bottom: var(--s2); -webkit-text-stroke: 1px var(--rule); }
+.promise h3 { margin: 0 0 var(--s3); font-size: 16.5px; color: var(--primary); font-weight: 700; padding-bottom: var(--s2); border-bottom: 2px solid var(--kaigo); display: inline-block; }
+.promise p { margin: 0; font-size: 13.5px; color: var(--ink-soft); line-height: 1.85; }
+
+/* ---------- 無料導線 ---------- */
+.cta-band { background: var(--primary); color: #fff; }
+.cta-inner { max-width: var(--wrap-text); margin: 0 auto; padding: clamp(48px,7vw,80px) var(--s4); text-align: center; }
+.cta-inner h2 { font-size: clamp(22px,3.5vw,30px); font-weight: 700; margin: 0 0 var(--s3); color: #fff; }
+.cta-inner p { font-size: 15.5px; color: rgba(255,255,255,0.86); margin: 0 auto var(--s5); max-width: 34em; }
+.cta-actions { display: flex; flex-wrap: wrap; gap: var(--s3); justify-content: center; }
+.cta-actions .btn-primary { background: #fff; color: var(--primary); }
+.cta-actions .btn-primary:hover { background: var(--paper-deep); }
+.cta-actions .btn-ghost { background: transparent; color: #fff; border-color: rgba(255,255,255,0.5); }
+.cta-actions .btn-ghost:hover { border-color: #fff; background: rgba(255,255,255,0.08); }
+
+/* ---------- 会社情報 ---------- */
+.info-table { width: 100%; max-width: var(--wrap-text); margin: 0 auto; border-collapse: collapse; font-size: 14.5px; background: var(--card); border: 1px solid var(--rule); }
+.info-table th { text-align: left; padding: 14px 18px; background: var(--paper-deep); border-bottom: 1px solid var(--rule-soft); width: 32%; vertical-align: top; font-weight: 700; color: var(--primary); white-space: nowrap; }
+.info-table td { padding: 14px 18px; border-bottom: 1px solid var(--rule-soft); }
+.info-table tr:last-child th, .info-table tr:last-child td { border-bottom: none; }
+.info-table ul { margin: 0; padding-left: 20px; }
+.info-table li { margin: 6px 0; }
+
+/* ---------- お問い合わせ ---------- */
+.contact-inner { max-width: var(--wrap-text); margin: 0 auto; text-align: center; }
+.contact-inner p { font-size: 15.5px; color: var(--ink-soft); }
+.mail { display: inline-block; font-size: clamp(19px,3vw,24px); font-weight: 700; color: var(--primary); margin: var(--s4) 0; text-decoration: none; border-bottom: 3px solid var(--kaigo); padding-bottom: 2px; }
+.contact-note { font-size: 13px; color: var(--ink-soft); text-align: left; background: var(--card); border-left: 3px solid var(--primary); padding: var(--s3) var(--s4); margin: var(--s5) auto 0; max-width: 34em; }
+
+/* ---------- フッター ---------- */
+.site-footer { background: var(--primary-dark); color: #fff; padding: var(--s7) var(--s4) var(--s5); }
+.footer-inner { max-width: var(--wrap); margin: 0 auto; }
+.footer-top { display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--s5); padding-bottom: var(--s5); border-bottom: 1px solid rgba(255,255,255,0.14); }
+.footer-brand .brand-name { color: #fff; font-size: 20px; }
+.footer-brand p { font-size: 13px; color: rgba(255,255,255,0.7); margin: var(--s2) 0 0; max-width: 26em; line-height: 1.8; }
+.footer-nav { display: flex; flex-wrap: wrap; gap: 12px 24px; align-items: flex-start; }
+.footer-nav a { color: rgba(255,255,255,0.82); text-decoration: none; font-size: 13.5px; }
+.footer-nav a:hover { color: #fff; text-decoration: underline; }
+.copyright { font-size: 12.5px; color: rgba(255,255,255,0.6); padding-top: var(--s4); }
+
+/* ---------- モバイル ---------- */
+@media (max-width: 860px) {
+  .hero-grid { grid-template-columns: 1fr; }
+  .hero-illust { order: -1; max-width: 440px; margin: 0 auto; }
+  .pain-row { grid-template-columns: 1fr; }
+  .stories-grid { grid-template-columns: 1fr; }
+  .cat-row { grid-template-columns: 44px 1fr; grid-template-areas: "no main" "act act"; row-gap: var(--s3); }
+  .cat-no { grid-area: no; }
+  .cat-main { grid-area: main; }
+  .cat-action { grid-area: act; text-align: left; }
+  .promise { border-right: none; border-bottom: 1px solid var(--rule-soft); }
+  .promise:last-child { border-bottom: none; }
+}
+@media (max-width: 640px) {
+  body { font-size: 15.5px; }
+  .wrap { padding: 0 var(--s3); }
+  .header-inner { padding: 10px var(--s3); }
+  .brand-sub { display: none; }
+  .site-nav { gap: var(--s3); overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .site-nav::-webkit-scrollbar { display: none; }
+  .site-nav a { font-size: 13.5px; }
+  .sec-label { flex-wrap: wrap; gap: var(--s2) var(--s3); }
+  .sec-label .en { display: none; }
+  .hero-actions .btn { flex: 1 1 auto; justify-content: center; }
+  .cta-actions .btn { width: 100%; justify-content: center; }
+  .cat-row { padding: var(--s4); }
+  .info-table th { width: 38%; font-size: 13px; padding: 12px 14px; }
+  .info-table td { padding: 12px 14px; }
+  .footer-top { flex-direction: column; }
+}
+</style>
+</head>
+<body>
+
+<!-- ============ ヘッダー ============ -->
+<header class="site-header">
+  <div class="header-inner">
+    <a href="#top" class="brand">
+      <span aria-hidden="true">
+        <svg width="38" height="38" viewBox="0 0 38 38" xmlns="http://www.w3.org/2000/svg">
+          <rect x="1.5" y="1.5" width="35" height="35" rx="7" fill="#1c3464"/>
+          <g stroke="#fbfaf6" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 27 V12 h6.5 a4.5 4.5 0 0 1 0 9 H12"/><path d="M17 21 l6 6"/>
+          </g>
+          <circle cx="27.5" cy="12.5" r="2.4" fill="#b8741a"/>
+        </svg>
+      </span>
+      <span>
+        <span class="brand-name">R150works</span>
+        <span class="brand-sub">合同会社 ／ SinqLog ファミリー</span>
+      </span>
+    </a>
+    <nav class="site-nav" aria-label="グローバルナビ">
+      <a href="#catalog">サービス目録</a>
+      <a href="#stories">現場のはなし</a>
+      <a href="#promise">姿勢</a>
+      <a href="#company">会社情報</a>
+      <a href="#contact" class="nav-cta">お問い合わせ</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ============ ヒーロー ============ -->
+<section class="hero" id="top">
+  <div class="hero-grid">
+    <div class="hero-copy">
+      <p class="hero-eyebrow">PUBLIC REFERENCE, FOR THE FIELD</p>
+      <h1 class="serif">現場の「調べる」を、<br>司書のしくみで。</h1>
+      <p class="lead">
+        介護・障害福祉・建設・自治会。制度に向き合う現場の「調べる・伝える・つながる」を、
+        公的資料を案内する“司書”のように、ひとつの土台から支えています。
+      </p>
+      <div class="hero-actions">
+        <a href="#catalog" class="btn btn-primary">サービス目録を見る <span class="arrow" aria-hidden="true">→</span></a>
+        <a href="#company" class="btn btn-ghost">わたしたちについて</a>
+      </div>
+    </div>
+
+    <!-- 司書のカウンター＝レファレンスデスクの線画 -->
+    <figure class="hero-illust">
+      <svg viewBox="0 0 520 400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="司書が公的資料の在り処を案内するレファレンスカウンターの線画イラスト">
+        <rect x="18" y="18" width="484" height="364" rx="14" fill="#fff" stroke="#ded8ca" stroke-width="1.5"/>
+        <!-- 目録の引き出し（カードカタログ） -->
+        <g stroke="#26303c" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="52" y="150" width="150" height="180" rx="6" fill="#fbfaf6"/>
+          <line x1="52" y1="195" x2="202" y2="195"/><line x1="52" y1="240" x2="202" y2="240"/><line x1="52" y1="285" x2="202" y2="285"/>
+        </g>
+        <!-- 引き出しの取っ手＝差し色ドット -->
+        <circle cx="127" cy="172" r="4" fill="#b8741a"/>
+        <circle cx="127" cy="217" r="4" fill="#4FA373"/>
+        <circle cx="127" cy="262" r="4" fill="#C96A3C"/>
+        <circle cx="127" cy="307" r="4" fill="#43699E"/>
+
+        <!-- カウンターの司書 -->
+        <g stroke="#26303c" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="330" cy="150" r="24" fill="#fff"/>
+          <path d="M304 196 q26 -26 52 0" fill="#fff"/>
+        </g>
+        <circle cx="322" cy="148" r="2.6" fill="#26303c"/>
+        <circle cx="338" cy="148" r="2.6" fill="#26303c"/>
+        <path d="M323 159 q7 5 14 0" stroke="#26303c" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+
+        <!-- カウンター天板と、差し出す資料 -->
+        <g stroke="#26303c" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="238" y1="252" x2="470" y2="252"/>
+          <rect x="270" y="212" width="104" height="40" rx="4" fill="#fff"/>
+          <line x1="286" y1="226" x2="358" y2="226"/><line x1="286" y1="238" x2="340" y2="238"/>
+        </g>
+        <!-- 虫眼鏡（アンバー・Public Reference の象徴） -->
+        <g stroke="#b8741a" stroke-width="3" fill="none" stroke-linecap="round">
+          <circle cx="404" cy="196" r="17" fill="#fff"/>
+          <line x1="417" y1="209" x2="432" y2="224"/>
+        </g>
+        <text x="404" y="201" text-anchor="middle" font-size="15" fill="#b8741a" font-weight="700" font-family="'Noto Sans JP',sans-serif">条</text>
+
+        <!-- 案内の吹き出し -->
+        <g stroke="#26303c" stroke-width="2" fill="#fff" stroke-linejoin="round">
+          <circle cx="300" cy="112" r="3.5"/><circle cx="292" cy="100" r="5"/><rect x="236" y="58" width="120" height="40" rx="12"/>
+        </g>
+        <text x="296" y="83" text-anchor="middle" fill="#1c3464" font-size="14" font-weight="700" font-family="'Noto Sans JP',sans-serif">出典はこちらです</text>
+      </svg>
+      <figcaption>公的資料の在り処を、出典つきで。答えは出さず、根拠へ案内する。</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ============ 困りごと ============ -->
+<section class="section">
+  <div class="sec-label">
+    <span class="no serif">01</span>
+    <h2>現場の「困りごと」から</h2>
+    <span class="en">WHY WE BUILD</span>
+  </div>
+  <div class="sec-intro"><p>思いつきの機能ではなく、実際に手が止まる場面を起点に設計しています。</p></div>
+
+  <div class="pain-row">
+    <div class="pain-card">
+      <div class="who">
+        <span aria-hidden="true"><svg width="42" height="42" viewBox="0 0 42 42"><circle cx="21" cy="21" r="20" fill="#fff" stroke="#b8741a" stroke-width="1.5"/><g stroke="#b8741a" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="21" cy="18" r="6.5"/><path d="M10 33 q11 -11 22 0"/></g></svg></span>
+        <h3>ケアマネージャーの方</h3>
+      </div>
+      <ul>
+        <li>この加算の根拠資料が、どこに書いてあるか探すだけで時間が過ぎてしまう</li>
+        <li>制度改定のたびに、自分で通知を読んで確認し直す作業が重なっている</li>
+        <li>書類の土台づくりをゼロから手作業しており、時間的な余裕がない</li>
+      </ul>
+      <p class="pain-quote">「この加算、根拠はどの資料だったかな…」</p>
+    </div>
+    <div class="pain-card">
+      <div class="who">
+        <span aria-hidden="true"><svg width="42" height="42" viewBox="0 0 42 42"><circle cx="21" cy="21" r="20" fill="#fff" stroke="#4FA373" stroke-width="1.5"/><g stroke="#4FA373" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="21" cy="18" r="6.5"/><path d="M10 33 q11 -11 22 0"/></g></svg></span>
+        <h3>児発管・放デイ管理者の方</h3>
+      </div>
+      <ul>
+        <li>運営指導に向けて、根拠となる法令や通達をどこで調べればいいか分からない</li>
+        <li>障害福祉の改定内容が多く、追い切れないまま実務を続けざるを得ない</li>
+        <li>個別支援計画書をゼロから起こすことが多く、担当者の負担が集中している</li>
+      </ul>
+      <p class="pain-quote">「個別支援計画、ゼロから書くのは大変…」</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 蔵書目録（サービス一覧） ============ -->
+<section class="section section-alt" id="catalog">
+  <div class="sec-label">
+    <span class="no serif">02</span>
+    <h2>サービス目録</h2>
+    <span class="en">OUR SERVICES ／ 7 TITLES</span>
+  </div>
+  <div class="sec-intro"><p>7 つのサービスを、ひとつの共通基盤で運営しています。業種ごとに“顔”は変えても、土台は同じです。</p></div>
+
+  <div class="catalog">
+
+    <!-- KaigoLog -->
+    <div class="cat-row" style="--a: var(--kaigo);">
+      <span class="cat-no serif">No.01</span>
+      <div class="cat-main">
+        <div class="cat-head">
+          <span class="cat-badge" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 20 20"><path d="M10 16 c-4.5 -4 -7 -6 -7 -9.5 a3 3 0 0 1 5.2 -1.8 a3 3 0 0 1 3.6 0 A3 3 0 0 1 17 6.5 C17 10 14.5 12 10 16 Z" stroke="#fff" stroke-width="1.8" fill="none" stroke-linejoin="round"/></svg></span>
+          <h3>KaigoLog</h3>
+          <span class="cat-role">ケアマネージャー向け業務支援 SaaS</span>
+          <span class="status">公開中</span>
+        </div>
+        <p class="cat-desc">介護AI司書 by PubRef で法令・告示・通達から根拠を案内。書類テンプレ、制度改定ニュース、気づきメモまで。</p>
+        <p class="cat-tag">根拠の最短ルートへ。判断は、あなたが。</p>
+      </div>
+      <div class="cat-action">
+        <a href="https://kaigolog.net/" class="cat-link">見る →</a>
+        <span class="cat-free">カード登録なしで無料から</span>
+      </div>
+    </div>
+
+    <!-- ShienLog -->
+    <div class="cat-row" style="--a: var(--shien);">
+      <span class="cat-no serif">No.02</span>
+      <div class="cat-main">
+        <div class="cat-head">
+          <span class="cat-badge" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 20 20"><g stroke="#fff" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M10 17 V8"/><path d="M10 10 q-6 -0.5 -6.5 -6.5 q6 0.5 6.5 6.5"/><path d="M10 9 q6 -1 6.5 -7 q-6 0.5 -6.5 7"/></g></svg></span>
+          <h3>ShienLog</h3>
+          <span class="cat-role">障害児通所支援事業者向け業務支援 SaaS</span>
+          <span class="status">公開中</span>
+        </div>
+        <p class="cat-desc">障害福祉AI司書 by PubRef と、条件入力から作る個別支援計画書のたたき台。制度改定ニュース・気づきメモも。</p>
+        <p class="cat-tag">土台はしくみで。仕上げは、あなたの手で。</p>
+      </div>
+      <div class="cat-action">
+        <a href="https://shienlog.com/" class="cat-link">見る →</a>
+        <span class="cat-free">カード登録なしで無料から</span>
+      </div>
+    </div>
+
+    <!-- PubRef -->
+    <div class="cat-row" style="--a: var(--pubref);">
+      <span class="cat-no serif">No.03</span>
+      <div class="cat-main">
+        <div class="cat-head">
+          <span class="cat-badge" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 18 18"><g stroke="#fff" stroke-width="1.8" fill="none" stroke-linecap="round"><circle cx="7.5" cy="7.5" r="4.5"/><line x1="11" y1="11" x2="15" y2="15"/></g></svg></span>
+          <h3>PubRef</h3>
+          <span class="cat-role">建設・税理士・不動産・社労士向け AI 司書</span>
+          <span class="status">公開中</span>
+        </div>
+        <p class="cat-desc">困りごとを日本語で入力すると「見るべきは○○法第○条」と出典リンク付きで案内。公的資料のみ・根拠がなければ「ない」と返す設計。</p>
+        <p class="cat-tag">「これって何法？」に、一次資料の在り処を。</p>
+      </div>
+      <div class="cat-action">
+        <a href="https://pubref.jp/" class="cat-link">見る →</a>
+        <span class="cat-free">無料で月5問から</span>
+      </div>
+    </div>
+
+    <!-- ExpLog -->
+    <div class="cat-row" style="--a: var(--explog);">
+      <span class="cat-no serif">No.04</span>
+      <div class="cat-main">
+        <div class="cat-head">
+          <span class="cat-badge" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 18 18"><g stroke="#fff" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="10" height="12" rx="1.5"/><line x1="6.5" y1="7" x2="11.5" y2="7"/><path d="M6.5 11 l1.6 1.6 l3 -3.4"/></g></svg></span>
+          <h3>ExpLog</h3>
+          <span class="cat-role">説明・同意の送付と確認状況の記録</span>
+          <span class="status">公開中</span>
+        </div>
+        <p class="cat-desc">説明資料を送信し、相手が確認したかをダッシュボードで一覧管理。「送った・伝わった」の記録を手元に残す。</p>
+        <p class="cat-tag">送った説明、確認できていますか。</p>
+      </div>
+      <div class="cat-action">
+        <a href="https://explog.jp/" class="cat-link">見る →</a>
+      </div>
+    </div>
+
+    <!-- AnpiLog -->
+    <div class="cat-row" style="--a: var(--anpi);">
+      <span class="cat-no serif">No.05</span>
+      <div class="cat-main">
+        <div class="cat-head">
+          <span class="cat-badge" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 18 18"><g stroke="#fff" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="12" height="9" rx="1.5"/><line x1="9" y1="5" x2="9" y2="14"/><circle cx="6" cy="9.5" r="1.3"/></g></svg></span>
+          <h3>AnpiLog</h3>
+          <span class="cat-role">配食事業者向け安否確認クラウド管理</span>
+          <span class="status">公開中</span>
+        </div>
+        <p class="cat-desc">毎日のお弁当配達の動線に安否確認の仕組みを組み込む。配達員のスマホから状況を記録・報告し、管理者は一覧で確認。</p>
+        <p class="cat-tag">配達が、見守りになる。</p>
+      </div>
+      <div class="cat-action">
+        <a href="https://anpilog.jp/" class="cat-link">見る →</a>
+        <span class="cat-free">フリープランあり（¥0）</span>
+      </div>
+    </div>
+
+    <!-- JichiLog -->
+    <div class="cat-row" style="--a: var(--jichi);">
+      <span class="cat-no serif">No.06</span>
+      <div class="cat-main">
+        <div class="cat-head">
+          <span class="cat-badge" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 18 18"><g stroke="#fff" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9 l4 -3.5 l4 3.5 v5 h-8 Z"/><path d="M11 10 l3.5 -3 l0.5 0.4 v6.6 h-4"/></g></svg></span>
+          <h3>JichiLog</h3>
+          <span class="cat-role">自治会向け連絡網・安否確認</span>
+          <span class="status">公開中</span>
+        </div>
+        <p class="cat-desc">住民の携帯番号・住所を画面に出さずに一斉連絡・安否確認。個人情報保護法に配慮した名簿管理。住民負担なし（自治会費で運用）。</p>
+        <p class="cat-tag">個人情報を晒さない、自治会の連絡網。</p>
+      </div>
+      <div class="cat-action">
+        <a href="https://jichilog.jp/" class="cat-link">見る →</a>
+      </div>
+    </div>
+
+    <!-- TsunagiLog -->
+    <div class="cat-row" style="--a: var(--tsunagi);">
+      <span class="cat-no serif">No.07</span>
+      <div class="cat-main">
+        <div class="cat-head">
+          <span class="cat-badge" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 18 18"><g stroke="#fff" stroke-width="1.8" fill="none" stroke-linecap="round"><circle cx="6.5" cy="9" r="3.3"/><circle cx="11.5" cy="9" r="3.3"/></g></svg></span>
+          <h3>TsunagiLog</h3>
+          <span class="cat-role">人生の節目に寄り添うサービス</span>
+          <span class="status soon">準備中</span>
+        </div>
+        <p class="cat-desc">退職後のお金とこれからの暮らしを整え、大切なことをご家族へ引き継ぐしくみ。近日公開予定。</p>
+        <p class="cat-tag">人生の節目に、寄り添う仕組みを。</p>
+      </div>
+      <div class="cat-action">
+        <span class="cat-link disabled">近日公開</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============ 現場のはなし（漫画） ============ -->
+<section class="section" id="stories">
+  <div class="sec-label">
+    <span class="no serif">03</span>
+    <h2>現場のはなし</h2>
+    <span class="en">HOW IT WORKS</span>
+  </div>
+  <div class="sec-intro"><p>言葉で説明するより、実際の場面で。困りごとが、しくみになるまでの4コマ。</p></div>
+
+  <div class="stories">
+    <div class="stories-grid">
+
+      <!-- KaigoLog story -->
+      <article class="story" style="--a: var(--kaigo);">
+        <div class="story-head">
+          <span class="story-tab" aria-hidden="true"></span>
+          <h3>KaigoLog</h3>
+          <span class="role">加算の根拠探し</span>
+        </div>
+        <p class="cap">「この加算、根拠はどこ？」が最短ルートで完結するまで。</p>
+        <figure>
+          <svg viewBox="0 0 600 600" width="100%" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="KaigoLog 4コマ漫画" font-family="'Noto Sans JP',-apple-system,sans-serif">
+            <rect x="0" y="0" width="600" height="600" fill="#ffffff"/>
+            <g stroke="#e5e7eb" stroke-width="1.5" fill="none">
+              <rect x="1" y="1" width="298" height="298"/><rect x="301" y="1" width="298" height="298"/>
+              <rect x="1" y="301" width="298" height="298"/><rect x="301" y="301" width="298" height="298"/>
+            </g>
+            <g transform="translate(0,0)">
+              <circle cx="26" cy="28" r="13" fill="#1c3464"/><text x="26" y="33" text-anchor="middle" fill="#fff" font-size="15" font-weight="700">1</text>
+              <g stroke="#1f2937" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M112 152 Q150 126 188 152"/><line x1="150" y1="120" x2="150" y2="130"/>
+                <rect x="42" y="176" width="216" height="12" rx="2" fill="#fff"/>
+                <line x1="60" y1="188" x2="60" y2="214"/><line x1="240" y1="188" x2="240" y2="214"/>
+                <rect x="74" y="158" width="44" height="18" rx="1.5" fill="#fff"/><line x1="80" y1="165" x2="112" y2="165"/><line x1="80" y1="170" x2="106" y2="170"/>
+                <rect x="150" y="156" width="42" height="20" rx="1.5" fill="#fff"/><line x1="156" y1="163" x2="186" y2="163"/><line x1="156" y1="169" x2="180" y2="169"/>
+                <circle cx="150" cy="96" r="24" fill="#fff"/><path d="M141 107 q9 4 18 0"/>
+              </g>
+              <circle cx="141" cy="92" r="2.4" fill="#1f2937"/><circle cx="159" cy="92" r="2.4" fill="#1f2937"/>
+              <g stroke="#1f2937" stroke-width="2" fill="#fff" stroke-linejoin="round">
+                <circle cx="184" cy="74" r="3.5"/><circle cx="192" cy="63" r="5"/><rect x="196" y="30" width="78" height="38" rx="12"/>
+              </g>
+              <text x="235" y="55" text-anchor="middle" fill="#1f2937" font-size="16" font-weight="700">加算？</text>
+              <text text-anchor="middle" fill="#374151" font-size="13.5"><tspan x="150" y="246">「この加算、根拠は</tspan><tspan x="150" y="265">どの資料だっけ…」</tspan></text>
+            </g>
+            <g transform="translate(300,0)">
+              <circle cx="26" cy="28" r="13" fill="#1c3464"/><text x="26" y="33" text-anchor="middle" fill="#fff" font-size="15" font-weight="700">2</text>
+              <g stroke="#1f2937" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="96" y="198" width="116" height="16" rx="2" fill="#fff"/>
+                <rect x="88" y="182" width="120" height="16" rx="2" fill="#fff" transform="rotate(-3 148 190)"/>
+                <rect x="100" y="166" width="112" height="16" rx="2" fill="#fff" transform="rotate(2 156 174)"/>
+                <rect x="92" y="150" width="118" height="16" rx="2" fill="#fff" transform="rotate(-2 151 158)"/>
+                <line x1="104" y1="158" x2="150" y2="158"/>
+                <circle cx="150" cy="120" r="20" fill="#fff"/>
+                <path d="M122 140 q-10 -10 -5 -24"/><path d="M178 140 q10 -10 5 -24"/>
+                <circle cx="250" cy="58" r="22" fill="#fff"/><line x1="250" y1="58" x2="250" y2="44"/><line x1="250" y1="58" x2="261" y2="62"/>
+              </g>
+              <circle cx="143" cy="117" r="2.3" fill="#1f2937"/><circle cx="157" cy="117" r="2.3" fill="#1f2937"/>
+              <path d="M145 129 q5 2 10 0" stroke="#1f2937" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+              <path d="M176 102 q5 8 0 13 q-5 -5 0 -13 Z" fill="#2a4d8f"/>
+              <text text-anchor="middle" fill="#374151" font-size="13.5"><tspan x="150" y="246">資料の山。探すだけで</tspan><tspan x="150" y="265">時間が過ぎていく。</tspan></text>
+            </g>
+            <g transform="translate(0,300)">
+              <circle cx="26" cy="28" r="13" fill="#1c3464"/><text x="26" y="33" text-anchor="middle" fill="#fff" font-size="15" font-weight="700">3</text>
+              <g stroke="#1f2937" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="56" y="54" width="188" height="122" rx="8" fill="#fff"/>
+                <line x1="56" y1="80" x2="244" y2="80"/>
+                <line x1="150" y1="176" x2="150" y2="192"/><line x1="126" y1="192" x2="174" y2="192"/>
+                <rect x="178" y="104" width="44" height="54" rx="3" fill="#fff"/><line x1="186" y1="118" x2="214" y2="118"/><line x1="186" y1="128" x2="214" y2="128"/><line x1="186" y1="138" x2="206" y2="138"/>
+              </g>
+              <text x="72" y="74" fill="#1c3464" font-size="13" font-weight="700">KaigoLog</text>
+              <text x="70" y="108" fill="#b8741a" font-size="12.5" font-weight="600">出典：◯◯法</text>
+              <text x="70" y="126" fill="#b8741a" font-size="12.5" font-weight="600">施行規則 第◯条</text>
+              <path d="M150 132 H172" stroke="#b8741a" stroke-width="2.4" fill="none" stroke-linecap="round"/><path d="M164 126 l8 6 l-8 6" stroke="#b8741a" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+              <text text-anchor="middle" fill="#374151" font-size="13.5"><tspan x="150" y="246">「“公的資料はここ”と</tspan><tspan x="150" y="265">案内してくれる」</tspan></text>
+            </g>
+            <g transform="translate(300,300)">
+              <circle cx="26" cy="28" r="13" fill="#1c3464"/><text x="26" y="33" text-anchor="middle" fill="#fff" font-size="15" font-weight="700">4</text>
+              <g stroke="#1f2937" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M114 158 Q150 132 186 158"/><line x1="150" y1="126" x2="150" y2="136"/>
+                <rect x="42" y="182" width="216" height="12" rx="2" fill="#fff"/>
+                <line x1="60" y1="194" x2="60" y2="218"/><line x1="240" y1="194" x2="240" y2="218"/>
+                <rect x="120" y="160" width="60" height="22" rx="2" fill="#fff"/>
+                <circle cx="150" cy="100" r="24" fill="#fff"/><path d="M140 106 q10 11 20 0"/>
+              </g>
+              <circle cx="141" cy="96" r="2.4" fill="#1f2937"/><circle cx="159" cy="96" r="2.4" fill="#1f2937"/>
+              <path d="M132 170 l8 8 l16 -18" stroke="#15803d" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M198 84 q7 -6 0 -13" stroke="#9ca3af" stroke-width="2" fill="none" stroke-linecap="round"/><path d="M210 80 q7 -6 0 -13" stroke="#9ca3af" stroke-width="2" fill="none" stroke-linecap="round"/>
+              <text text-anchor="middle" fill="#374151" font-size="13.5"><tspan x="150" y="246">根拠の最短ルートへ。</tspan><tspan x="150" y="265">判断は、あなたが。</tspan></text>
+            </g>
+          </svg>
+        </figure>
+      </article>
+
+      <!-- ShienLog story -->
+      <article class="story" style="--a: var(--shien);">
+        <div class="story-head">
+          <span class="story-tab" aria-hidden="true"></span>
+          <h3>ShienLog</h3>
+          <span class="role">計画書の土台づくり</span>
+        </div>
+        <p class="cap">ゼロから書いていた計画書の土台が、しくみになるまで。</p>
+        <figure>
+          <svg viewBox="0 0 600 600" width="100%" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="ShienLog 4コマ漫画" font-family="'Noto Sans JP',-apple-system,sans-serif">
+            <rect x="0" y="0" width="600" height="600" fill="#ffffff"/>
+            <g stroke="#e5e7eb" stroke-width="1.5" fill="none">
+              <rect x="1" y="1" width="298" height="298"/><rect x="301" y="1" width="298" height="298"/>
+              <rect x="1" y="301" width="298" height="298"/><rect x="301" y="301" width="298" height="298"/>
+            </g>
+            <g transform="translate(0,0)">
+              <circle cx="26" cy="28" r="13" fill="#1c3464"/><text x="26" y="33" text-anchor="middle" fill="#fff" font-size="15" font-weight="700">1</text>
+              <g stroke="#1f2937" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M112 150 Q150 124 188 150"/><line x1="150" y1="118" x2="150" y2="128"/>
+                <rect x="42" y="178" width="216" height="12" rx="2" fill="#fff"/>
+                <line x1="60" y1="190" x2="60" y2="216"/><line x1="240" y1="190" x2="240" y2="216"/>
+                <rect x="106" y="150" width="88" height="30" rx="2" fill="#fff"/>
+                <rect x="113" y="157" width="8" height="8" rx="1"/><line x1="128" y1="161" x2="186" y2="161"/>
+                <rect x="113" y="168" width="8" height="8" rx="1"/><line x1="128" y1="172" x2="178" y2="172"/>
+                <circle cx="150" cy="94" r="24" fill="#fff"/><path d="M142 107 q8 -4 16 0"/>
+              </g>
+              <circle cx="141" cy="90" r="2.4" fill="#1f2937"/><circle cx="159" cy="90" r="2.4" fill="#1f2937"/>
+              <g stroke="#1f2937" stroke-width="2" fill="#fff" stroke-linejoin="round">
+                <circle cx="184" cy="72" r="3.5"/><circle cx="192" cy="61" r="5"/><rect x="194" y="26" width="86" height="38" rx="12"/>
+              </g>
+              <text x="237" y="51" text-anchor="middle" fill="#1f2937" font-size="15" font-weight="700">計画書…</text>
+              <text text-anchor="middle" fill="#374151" font-size="13"><tspan x="150" y="246">「個別支援計画、ゼロから</tspan><tspan x="150" y="265">書くのは大変…」</tspan></text>
+            </g>
+            <g transform="translate(300,0)">
+              <circle cx="26" cy="28" r="13" fill="#1c3464"/><text x="26" y="33" text-anchor="middle" fill="#fff" font-size="15" font-weight="700">2</text>
+              <g stroke="#1f2937" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M116 198 Q150 170 184 198"/><line x1="150" y1="164" x2="150" y2="174"/>
+                <circle cx="150" cy="140" r="20" fill="#fff"/>
+                <path d="M122 178 q-12 -8 -10 -26"/><path d="M178 178 q12 -8 10 -26"/>
+                <g fill="#fff">
+                  <rect x="58" y="40" width="46" height="34" rx="2" transform="rotate(-12 81 57)"/>
+                  <rect x="134" y="28" width="46" height="34" rx="2" transform="rotate(7 157 45)"/>
+                  <rect x="206" y="46" width="46" height="34" rx="2" transform="rotate(-8 229 63)"/>
+                </g>
+                <line x1="72" y1="22" x2="76" y2="33"/><line x1="158" y1="12" x2="160" y2="23"/><line x1="232" y1="28" x2="235" y2="39"/>
+              </g>
+              <circle cx="143" cy="137" r="2.3" fill="#1f2937"/><circle cx="157" cy="137" r="2.3" fill="#1f2937"/>
+              <path d="M144 150 q6 -3 12 0" stroke="#1f2937" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+              <text x="81" y="61" text-anchor="middle" fill="#b8741a" font-size="11" font-weight="700" transform="rotate(-12 81 57)">改定</text>
+              <text x="157" y="49" text-anchor="middle" fill="#b8741a" font-size="11" font-weight="700" transform="rotate(7 157 45)">改定</text>
+              <text x="229" y="67" text-anchor="middle" fill="#b8741a" font-size="11" font-weight="700" transform="rotate(-8 229 63)">改定</text>
+              <text text-anchor="middle" fill="#374151" font-size="13"><tspan x="150" y="246">制度改定の通知も次々。</tspan><tspan x="150" y="265">追いつかない。</tspan></text>
+            </g>
+            <g transform="translate(0,300)">
+              <circle cx="26" cy="28" r="13" fill="#1c3464"/><text x="26" y="33" text-anchor="middle" fill="#fff" font-size="15" font-weight="700">3</text>
+              <g stroke="#1f2937" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="34" y="58" width="152" height="118" rx="8" fill="#fff"/>
+                <line x1="34" y1="82" x2="186" y2="82"/>
+                <line x1="110" y1="176" x2="110" y2="190"/><line x1="88" y1="190" x2="132" y2="190"/>
+                <rect x="50" y="96" width="13" height="13" rx="2"/><line x1="72" y1="103" x2="150" y2="103"/>
+                <rect x="50" y="120" width="13" height="13" rx="2"/><line x1="72" y1="127" x2="150" y2="127"/>
+                <rect x="50" y="144" width="13" height="13" rx="2"/><line x1="72" y1="151" x2="138" y2="151"/>
+                <rect x="212" y="96" width="58" height="80" rx="3" fill="#fff"/><line x1="222" y1="122" x2="260" y2="122"/><line x1="222" y1="134" x2="260" y2="134"/><line x1="222" y1="146" x2="252" y2="146"/>
+              </g>
+              <path d="M53 103 l3 4 l6 -8" stroke="#15803d" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M53 127 l3 4 l6 -8" stroke="#15803d" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M53 151 l3 4 l6 -8" stroke="#15803d" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+              <text x="50" y="76" fill="#1c3464" font-size="13" font-weight="700">ShienLog</text>
+              <path d="M188 136 H210" stroke="#b8741a" stroke-width="2.4" fill="none" stroke-linecap="round"/><path d="M202 130 l8 6 l-8 6" stroke="#b8741a" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+              <text x="241" y="113" text-anchor="middle" fill="#b8741a" font-size="11" font-weight="700">たたき台</text>
+              <text text-anchor="middle" fill="#374151" font-size="13"><tspan x="150" y="246">条件を入れると、</tspan><tspan x="150" y="265">たたき台が出てくる。</tspan></text>
+            </g>
+            <g transform="translate(300,300)">
+              <circle cx="26" cy="28" r="13" fill="#1c3464"/><text x="26" y="33" text-anchor="middle" fill="#fff" font-size="15" font-weight="700">4</text>
+              <g stroke="#1f2937" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M114 158 Q150 132 186 158"/><line x1="150" y1="126" x2="150" y2="136"/>
+                <rect x="42" y="182" width="216" height="12" rx="2" fill="#fff"/>
+                <line x1="60" y1="194" x2="60" y2="218"/><line x1="240" y1="194" x2="240" y2="218"/>
+                <rect x="104" y="158" width="78" height="26" rx="2" fill="#fff"/><line x1="112" y1="166" x2="158" y2="166"/><line x1="112" y1="173" x2="150" y2="173"/>
+                <circle cx="150" cy="100" r="24" fill="#fff"/><path d="M140 106 q10 11 20 0"/>
+              </g>
+              <circle cx="141" cy="96" r="2.4" fill="#1f2937"/><circle cx="159" cy="96" r="2.4" fill="#1f2937"/>
+              <path d="M170 150 L196 130" stroke="#b8741a" stroke-width="3.4" fill="none" stroke-linecap="round"/><path d="M170 150 l-3 8 l8 -3 z" fill="#b8741a"/>
+              <path d="M205 86 q7 -6 0 -13" stroke="#9ca3af" stroke-width="2" fill="none" stroke-linecap="round"/><path d="M216 82 q7 -6 0 -13" stroke="#9ca3af" stroke-width="2" fill="none" stroke-linecap="round"/>
+              <text text-anchor="middle" fill="#374151" font-size="13"><tspan x="150" y="246">土台はしくみで。</tspan><tspan x="150" y="265">仕上げは、あなたの手で。</tspan></text>
+            </g>
+          </svg>
+        </figure>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============ 無料導線 ============ -->
+<section class="cta-band">
+  <div class="cta-inner">
+    <h2>まず、無料で試してみてください</h2>
+    <p>カード登録なしで、AI司書に公的資料の案内を依頼できます。登録後すぐに使える無料枠から、現場に合うかどうかをご確認ください。</p>
+    <div class="cta-actions">
+      <a href="https://kaigolog.net/" class="btn btn-primary">KaigoLog を無料で試す</a>
+      <a href="https://shienlog.com/" class="btn btn-ghost">ShienLog を無料で試す</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ わたしたちの姿勢 ============ -->
+<section class="section" id="promise">
+  <div class="sec-label">
+    <span class="no serif">04</span>
+    <h2>わたしたちの姿勢</h2>
+    <span class="en">OUR STANCE</span>
+  </div>
+  <div class="promise-grid">
+    <div class="promise">
+      <span class="num serif">1</span>
+      <h3>公的資料を「案内する」AI</h3>
+      <p>当社の AI 機能（介護AI司書・障害福祉AI司書 by PubRef）は「答えを出す AI」ではなく「公的資料を案内する AI」として設計されています。法令・告示・通達など公的に発表された資料を根拠に、適切な情報源への最短ルートを提示します。最終判断は利用者ご自身が行います。</p>
+    </div>
+    <div class="promise">
+      <span class="num serif">2</span>
+      <h3>業界中立</h3>
+      <p>当社のサービスは、特定のフランチャイズ本部・特定の医療法人グループに紐付かない、業界中立のプラットフォームとして設計されています。事業所の皆様が所属先にかかわらず安心して業務に集中できる環境を提供します。</p>
+    </div>
+    <div class="promise">
+      <span class="num serif">3</span>
+      <h3>個人プランの設計と決済透明性</h3>
+      <p>個人プランは、業務上の個人情報を当社サーバーに蓄積しない設計の入口から始まります。決済処理は Stripe Payments Japan 株式会社を通じて行い、カード情報は当社サーバーに保管されません。契約管理は Stripe Customer Portal からいつでも実施いただけます。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 会社情報 ============ -->
+<section class="section section-alt" id="company">
+  <div class="sec-label">
+    <span class="no serif">05</span>
+    <h2>会社情報</h2>
+    <span class="en">COMPANY</span>
+  </div>
+  <table class="info-table">
+    <tr><th>商号</th><td>R150works 合同会社</td></tr>
+    <tr><th>設立</th><td>2025年8月</td></tr>
+    <tr><th>資本金</th><td>500,000円</td></tr>
+    <tr><th>法人番号</th><td>5010403035802</td></tr>
+    <tr><th>所在地</th><td>〒105-0013 東京都港区浜松町二丁目2番15号 浜松町ダイヤビル2F</td></tr>
+    <tr><th>事業内容</th><td>
+      <ul>
+        <li>公的資料案内・現場支援 SaaS（KaigoLog / ShienLog / PubRef / ExpLog ほか）の開発・運営</li>
+        <li>見守り・連絡網サービス（AnpiLog / JichiLog ほか）の開発・運営</li>
+        <li>飲食事業</li>
+      </ul>
+    </td></tr>
+    <tr><th>取引銀行</th><td>GMO あおぞらネット銀行</td></tr>
+    <tr><th>適格請求書発行事業者</th><td>現在未登録（免税事業者）<br><span style="font-size:13px;color:var(--ink-soft);">2027年8月（第3期）より課税事業者へ移行予定。登録番号取得後、本ページに掲載します。</span></td></tr>
+  </table>
+</section>
+
+<!-- ============ お問い合わせ ============ -->
+<section class="section" id="contact">
+  <div class="sec-label">
+    <span class="no serif">06</span>
+    <h2>お問い合わせ</h2>
+    <span class="en">CONTACT</span>
+  </div>
+  <div class="contact-inner">
+    <p>サービスのご質問・お見積もり・取材のご依頼は、以下のメールアドレスまでお気軽にお寄せください。</p>
+    <a href="mailto:info@r150works.com" class="mail">info@r150works.com</a>
+    <p class="contact-note">
+      営業時間：平日 10:00〜18:00（土日祝・年末年始を除く）<br>
+      お電話をご希望の方は、上記メールにて事前にご連絡ください。電話番号を遅滞なく開示いたします。
+    </p>
+  </div>
+</section>
+
+<!-- ============ フッター ============ -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <span class="brand-name">R150works</span>
+        <p>介護・障害福祉・建設・自治会など、現場の「調べる・伝える・つながる」を、公的資料と仕組みに根ざして支えます。</p>
+      </div>
+      <nav class="footer-nav" aria-label="フッター法務リンク">
+        <a href="../tokushoho.html">特定商取引法に基づく表記</a>
+        <a href="../terms.html">利用規約</a>
+        <a href="../privacy.html">プライバシーポリシー</a>
+      </nav>
+    </div>
+    <div class="copyright">&copy; 2025-2026 R150works 合同会社. All rights reserved.</div>
+  </div>
+</footer>
+
+</body>
+</html>
