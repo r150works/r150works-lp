@@ -40,8 +40,8 @@ jobs:
                   if last == tag: self.stack.pop()
                   else: self.errors.append(f'mismatch: open<{last}> close</{tag}>')
           fail = False
-          for f in ['index.html', 'tokushoho.html', 'terms.html', 'privacy.html']:
-              if not os.path.exists(f): continue
+          for f in ['public/index.html', 'public/tokushoho.html', 'public/terms.html', 'public/privacy.html']:
+              if not os.path.exists(f): print(f'NG {f} が存在しない（配信対象は public/ 配下）'); fail = True; continue
               with open(f, encoding='utf-8') as fp: c = fp.read()
               v = V(); v.feed(c)
               if v.errors or v.stack:

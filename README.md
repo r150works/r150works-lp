@@ -1,5 +1,12 @@
 # r150works.com ランディングページ
 
+> **★2026-09-09 構成変更：配信されるのは `public/` の中だけです。**
+> 公開したいファイルは必ず `public/` へ置いてください。**リポジトリ直下に置いても配信されません。**
+> 設定は `netlify.toml` の `publish = "public"`。
+> 変更の理由＝それ以前は直下をそのまま配信していたため、`mockups/` と本 README が
+> `https://r150works.com/` から誰でも読める状態でした（`52` タスク327）。
+> **本 README と `mockups/` は意図的に `public/` の外に置いてあります。**
+
 R150works 合同会社 公式 LP（Stripe 審査用、既存 r150works.com に配置）。
 
 ## 構成
